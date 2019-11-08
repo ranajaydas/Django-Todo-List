@@ -1,0 +1,18 @@
+{% extends parent_template|default:"todo/todo_base.html" %}
+
+{% block title %}
+{{ block.super }} - Update Item
+{% endblock %}
+
+{% block content %}
+  <div>
+    <div>
+      <form action="{{ item.get_update_url }}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <a href="{{ item.get_absolute_url }}">Cancel</a>
+        <button type="submit">Update Item</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

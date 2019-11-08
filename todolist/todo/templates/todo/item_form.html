@@ -1,0 +1,17 @@
+{% extends parent_template|default:"todo/todo_base.html" %}
+
+{% block title %}
+  {{ block.super }} - Add New Item
+{% endblock title %}
+
+{% block content %}
+  <div>
+    <div>
+      <form action="{% url 'item_create' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="button">Create New Item</button>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

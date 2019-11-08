@@ -1,0 +1,41 @@
+{% extends parent_template|default:"todo/todo_base.html" %}
+
+{% block title %}
+    {{ block.super }} - {{ todo.title|title }}
+{% endblock title %}
+
+{% block content %}
+    <article>
+        <header>
+            <h2>{{ todo.title|title }}</h2>
+            <p>
+                <a href="{{ todo.get_update_url }}">Edit</a>
+                <a href="{{ todo.get_delete_url }}">Delete</a>
+            </p>
+        </header>
+        {% if todo.items.all %}
+            <table>
+                {% for item in todo.items.all %}
+                    <tr>
+                        <td>
+                            {% if item.completed %}
+                                <del>
+                                    {{ item.name }} <br>
+                                    <em>{{ item.notes }}</em>
+                                </del>
+                            {% else %}
+                                {{ item.name }} <br>
+                                <em>{{ item.notes }}</em>
+                            {% endif %}
+                        </td>
+                        <td><a href="{{ item.get_update_url }}">Edit</a></td>
+                        <td><a href="{{ item.get_delete_url }}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+        <p>
+            <a href="{% url 'item_create' %}">Add New Item</a>
+        </p>
+    </article>
+{% endblock content %}

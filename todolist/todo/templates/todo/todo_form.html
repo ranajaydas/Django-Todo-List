@@ -1,0 +1,17 @@
+{% extends parent_template|default:"todo/todo_base.html" %}
+
+{% block title %}
+  {{ block.super }} - Add New Todo List
+{% endblock title %}
+
+{% block content %}
+  <div>
+    <div>
+      <form action="{% url 'todo_create' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="button">Create New Todo List</button>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends parent_template|default:"todo/todo_base.html" %}
+
+{% block title %}
+  {{ block.super }} - todos
+{% endblock title %}
+
+{% block content %}
+  <div>
+    <a href="{% url 'todo_create' %}">Add New todo</a>
+  </div>
+
+  {% for todo in todo_list %}
+    <article>
+      <header>
+        <h2>
+          <a href="{{ todo.get_absolute_url }}">
+            {{ todo.title|title }}
+          </a>
+        </h2>
+      </header>
+      {% if todo.items.all %}
+        {% for item in todo.items.all %}
+          <ul>
+            <li>{{ item.name }}</li>
+          </ul>
+        {% endfor %}
+      {% endif %}
+    </article>
+  {% empty %}
+    <p><em>No todos Available</em></p>
+  {% endfor %}
+{% endblock content %}
